@@ -21,9 +21,11 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Artifact to Nexus') {
+    stage('Deploy Artifact to Nexus') {
     steps {
-        sh "mvn deploy -DskipTests --settings /opt/maven-config/settings.xml"
+        dir("${env.WORKSPACE}") {
+            sh "mvn deploy -DskipTests --settings /opt/maven-config/settings.xml"
+        }
     }
 }
     }
