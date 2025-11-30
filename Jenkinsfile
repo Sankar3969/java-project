@@ -21,6 +21,13 @@ pipeline {
                 }
             }
         }
+         stage('Deploy Artifact to Nexus') {
+            steps {
+                configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+                    sh "mvn deploy -DskipTests --settings $MAVEN_SETTINGS"
+                }
+            }
+         }
     }
 }
 
